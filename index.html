@@ -5,23 +5,50 @@
     <script src="data_generator.js"></script>
   </head>
   <body>
+
+
+<h1> This is the Twittler App </h1>
+
+<button type="button" class="button1">Click to Refresh</button>
+<button type="buton" class="button2">Click to clear old Tweets</button>
+
+<ul class="messages">
+    
+    </ul>
+
     <script>
+     
 
-      $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
-
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
+    var tweetActions = {
+        showNewTweets: function(){
+          var index = streams.home.length - 1;
+            while(index >= 0){
+              var tweet = streams.home[index];
+              var $tweet = $('<div></div>');
+              var date = tweet.created_at.toString();
+              var username = tweet.user.toString();
+              var message = tweet.message.toString();
+              $tweet.text('@' + username + ': ' + message + "  Posted at: " + date);
+              $('.messages').append($tweet);
+              index -= 1;
+            } 
+          },
+        deleteSeenTweets: function(){
+        $('ul').empty();
+         }
         }
 
-      });
+  $(document).ready(function(){
+     $('.button1').on('click', function(){
+      tweetActions.showNewTweets();
+    });
+     $('.button2').on('click', function(){
+      tweetActions.deleteSeenTweets();
+     });
+   });
 
     </script>
+
+
   </body>
 </html>
