@@ -3,11 +3,26 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+
+    <style>
+h1 {color:grey;}
+
+body {background-image:url('http://i62.tinypic.com/2zfr68h.jpg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-attachment: fixed;
+      background-size: cover}
+
+.tweet-text {color:blue; font-size:24px;}
+
+.user-name {color:yellow;
+            size:large;}
+</style>
+
   </head>
   <body>
 
-
-<h1> This is the Twittler App </h1>
+<h1> This is Taylor's Twittler App </h1>
 
 <button type="button" class="button1">Click to Refresh</button>
 <button type="buton" class="button2">Click to clear old Tweets</button>
@@ -23,13 +38,21 @@
         showNewTweets: function(){
           var index = streams.home.length - 1;
             while(index >= 0){
-              var tweet = streams.home[index];
-              var $tweet = $('<div></div>');
-              var date = tweet.created_at.toString();
-              var username = tweet.user.toString();
+              var tweet = streams.home[index]
               var message = tweet.message.toString();
-              $tweet.text('@' + username + ': ' + message + "  Posted at: " + date);
-              $('.messages').append($tweet);
+              var $tweet = $('<span class = tweet-text></span>');
+
+              var username = tweet.user.toString();
+              var $name = $('<span class = user-name></span>');
+
+              var date = tweet.created_at.toString();
+              var $date = $('<span class = time-stamp></span>');
+
+              var $wholeMessage = $('<div class = tweet-text></div>');
+              
+             
+              $wholeMessage.html('@' + username + ':        ' + message + "            Posted at:        " + date);
+              $('.messages').append($wholeMessage);
               index -= 1;
             } 
           },
