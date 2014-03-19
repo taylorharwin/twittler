@@ -3,9 +3,19 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <script src ='moment.js' ></script>
 
     <style>
 h1 {color:green;}
+ul {list-style-type: none;
+    padding: 0;
+    margin: 0;}
+
+body {background-image:url('http://i62.tinypic.com/2zfr68h.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover}
 
 #wrap {
    width:1800px;
@@ -14,8 +24,7 @@ h1 {color:green;}
 #left_col {
    float:left;
    width:38%;
-   border-right:thick double #ff0000;
-   border-length:1px;
+
 }
 #right_col {
    float:right;
@@ -23,19 +32,16 @@ h1 {color:green;}
 }
 
 
-body {background-image:url('http://i62.tinypic.com/2zfr68h.jpg');
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-attachment: fixed;
-      background-size: cover}
-
-.tweet-text {color:black; font-size:16px;}
+.tweet-text {color:black; font-size:20px;}
 
 .user-name {color:blue;
             font-size:20px;}
 
 .tweet-date {color: black;
             font-size: 16px;}
+
+
+
 </style>
 
   </head>
@@ -46,12 +52,14 @@ body {background-image:url('http://i62.tinypic.com/2zfr68h.jpg');
 <button type="button" class="button1">Click to Refresh</button>
 <button type="buton" class="button2">Click to clear old Tweets</button>
 
+
 <div id = 'wrap'>
   <div id="left_col">
     <h2> Home Timeline </h2>
     <ul class="messages">
     </ul>
     </div>
+  
   <div id="right_col">
     <h2> User Timeline </h2>
     </div>
@@ -66,7 +74,7 @@ var showNewTweets = function () {
         var tweet = streams.home[index]
         var username = "@" + tweet.user.toString() + ": ";
         var message = tweet.message.toString();
-        var date = "Posted On:  " + tweet.created_at.toString();
+        var date = "Posted " + moment(tweet.created_at.toString()).fromNow();
 
         var wholemessage = "<li><span class=user-name >" + username + "</span>" + "<span class = tweet-text>" + message + "</span >" + "<span class=tweet-date >" + date + "</span></li>"
 
