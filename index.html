@@ -5,7 +5,23 @@
     <script src="data_generator.js"></script>
 
     <style>
-h1 {color:grey;}
+h1 {color:green;}
+
+#wrap {
+   width:1800px;
+   margin:0 auto;
+}
+#left_col {
+   float:left;
+   width:38%;
+   border-right:thick double #ff0000;
+   border-length:1px;
+}
+#right_col {
+   float:right;
+   width:49%;
+}
+
 
 body {background-image:url('http://i62.tinypic.com/2zfr68h.jpg');
       background-repeat: no-repeat;
@@ -13,10 +29,13 @@ body {background-image:url('http://i62.tinypic.com/2zfr68h.jpg');
       background-attachment: fixed;
       background-size: cover}
 
-.tweet-text {color:blue; font-size:24px;}
+.tweet-text {color:black; font-size:16px;}
 
-.user-name {color:yellow;
-            size:large;}
+.user-name {color:blue;
+            font-size:20px;}
+
+.tweet-date {color: black;
+            font-size: 16px;}
 </style>
 
   </head>
@@ -27,46 +46,46 @@ body {background-image:url('http://i62.tinypic.com/2zfr68h.jpg');
 <button type="button" class="button1">Click to Refresh</button>
 <button type="buton" class="button2">Click to clear old Tweets</button>
 
-<ul class="messages">
-    
+<div id = 'wrap'>
+  <div id="left_col">
+    <h2> Home Timeline </h2>
+    <ul class="messages">
     </ul>
+    </div>
+  <div id="right_col">
+    <h2> User Timeline </h2>
+    </div>
+</div>
 
     <script>
-     
+  
 
-    var tweetActions = {
-        showNewTweets: function(){
-          var index = streams.home.length - 1;
-            while(index >= 0){
-              var tweet = streams.home[index]
-              var message = tweet.message.toString();
-              var $tweet = $('<span class = tweet-text></span>');
+var showNewTweets = function () {
+    var index = streams.home.length - 1;
+    while (index >= 0) {
+        var tweet = streams.home[index]
+        var username = "@" + tweet.user.toString() + ": ";
+        var message = tweet.message.toString();
+        var date = "Posted On:  " + tweet.created_at.toString();
 
-              var username = tweet.user.toString();
-              var $name = $('<span class = user-name></span>');
+        var wholemessage = "<li><span class=user-name >" + username + "</span>" + "<span class = tweet-text>" + message + "</span >" + "<span class=tweet-date >" + date + "</span></li>"
 
-              var date = tweet.created_at.toString();
-              var $date = $('<span class = time-stamp></span>');
-
-              var $wholeMessage = $('<div class = tweet-text></div>');
-              
-             
-              $wholeMessage.html('@' + username + ':        ' + message + "            Posted at:        " + date);
-              $('.messages').append($wholeMessage);
+              $('.messages').append(wholemessage).html();
               index -= 1;
             } 
-          },
-        deleteSeenTweets: function(){
+          };
+
+  
+       var deleteSeenTweets = function(){
         $('ul').empty();
          }
-        }
 
   $(document).ready(function(){
      $('.button1').on('click', function(){
-      tweetActions.showNewTweets();
+      showNewTweets();
     });
      $('.button2').on('click', function(){
-      tweetActions.deleteSeenTweets();
+      deleteSeenTweets();
      });
    });
 
