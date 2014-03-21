@@ -9,7 +9,8 @@
 h1 {color:green;}
 ul {list-style-type: none;
     padding: 0;
-    margin: 0;}
+    margin: 0;
+    float: left;}
 
 body {background-image:url('http://i62.tinypic.com/2zfr68h.jpg');
   background-repeat: no-repeat;
@@ -23,12 +24,12 @@ body {background-image:url('http://i62.tinypic.com/2zfr68h.jpg');
 }
 #left_col {
    float:left;
-   width:38%;
+   width:35%;
 
 }
 #right_col {
-   float:right;
-   width:49%;
+   float:left;
+   width:65%;
 }
 
 
@@ -62,6 +63,8 @@ body {background-image:url('http://i62.tinypic.com/2zfr68h.jpg');
   
   <div id="right_col">
     <h2> User Timeline </h2>
+    <ul class = "public-messages">
+    </ul>
     </div>
 </div>
 
@@ -83,14 +86,29 @@ var showNewTweets = function () {
             } 
           };
 
+var showUserTweets = function (name) {
+  var index = streams.users[name].length - 1;
+  while (index >= 0) {
+    var tweet = streams.users[name][index];
+    var username = "@" + tweet.user.toString() + ": ";
+    var message = tweet.message.toString();
+    var date = "Posted " + moment(tweet.created_at.toString()).fromNow();
+
+    var wholemessage = "<li><span class=user-name >" + username + "</span>" + "<span class = tweet-text>" + message + "</span >" + "<span class=tweet-date >" + date + "</span></li>";
+              $('.public-messages').append(wholemessage).html();
+              index -= 1;
+            } 
+          };
+
   
        var deleteSeenTweets = function(){
         $('ul').empty();
          }
 
-  $(document).ready(function(){
+$(document).ready(function(){
      $('.button1').on('click', function(){
       showNewTweets();
+      showUserTweets('shawndrost');
     });
      $('.button2').on('click', function(){
       deleteSeenTweets();
